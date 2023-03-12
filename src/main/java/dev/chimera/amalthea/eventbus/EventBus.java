@@ -120,6 +120,7 @@ public class EventBus {
 
             // Perform the topological sort
             ArrayList<Listener> sortedListeners = new ArrayList<>();
+            //ChimeraClient.LOGGER.error(queue.toString());
             while (!queue.isEmpty()) {
                 ListenerNode node = queue.poll();
                 sortedListeners.add(node.listener);
@@ -130,6 +131,7 @@ public class EventBus {
                         queue.offer(dependentNode);
                     }
                 }
+
             }
 
             // Check for cycles
@@ -155,6 +157,11 @@ public class EventBus {
     }
 
     public <T> void postEvent(T event) {
+//        if(!listenersByEventType.containsKey(event.getClass()))
+//        {
+//            // No listeners for event
+//            return;
+//        }
         ArrayList<Listener> listeners = sortMap(event);
         if (listeners != null) {
             listeners.forEach((listener) -> {
@@ -169,6 +176,11 @@ public class EventBus {
     }
 
     public <T> void postEventToListener(T event, String id) {
+//        if(!listenersByEventType.containsKey(event.getClass()))
+//        {
+//            // No listeners for event
+//            return;
+//        }
         Listener listener = listenerIDs.get(id);
         if (listener.getMethod().getParameterTypes()[0] == event.getClass()) {
 

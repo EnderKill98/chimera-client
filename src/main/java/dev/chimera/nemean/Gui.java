@@ -50,7 +50,6 @@ public class Gui {
         //does the imGui stuff
         implGlfw.newFrame();
         ImGui.newFrame();
-
         ImGui.begin("ChimeraGUI");
         ModuleInitializer.getEnabledModuleList().forEach((module) -> {
 //            if (ImGui.checkbox(module.getModuleName(), module.getModuleEnabled())) {
